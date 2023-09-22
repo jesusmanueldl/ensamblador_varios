@@ -1,0 +1,75 @@
+TITLE "DE BINARIO A DECIMAL"
+.386
+.MODEL FLAT,STDCALL
+include masm32rt.inc 
+.DATA
+
+	BINA DWORD "111",0
+	BASE DWORD 2
+	ACUMULA DWORD 0
+	
+.CODE
+	
+	MAIN PROC
+		
+		MOV ESI,OFFSET BINA
+		CALL LONGITUD ;RESULTADO EN ECX
+		CALL ITERA
+		inkey
+		invoke ExitProcess,0
+				
+		RET
+
+	MAIN ENDP
+	
+	LONGITUD PROC USES ESI
+		
+		MOV ECX,0
+		CICLO1:
+		
+			CMP [ESI], DWORD PTR 0	;COMPARA SI SON IGUALES
+			JZ SALIR				;SI SO IGUALES SALE SI NO CONTINUA	
+			JNZ CONTINUA
+		
+		CONTINUA:
+					
+			INC ESI
+			INC ECX
+			JMP CICLO1
+						
+		SALIR:
+		
+			RET
+			
+	LONGITUD ENDP
+	
+	ITERA PROC USES ESI 
+		
+		
+		CICLO2:
+			PUSHAD
+			
+			MOV EBX,ECX
+			DEC EBX
+			MOV ECX,EBX			
+			CICLO3:
+				
+				CMP ECX, DWORD PTR 0
+				
+				
+				
+				
+			LOOP CICLO3
+			
+			POPAD
+		
+			DEC ECX
+		LOOP CICLO2
+
+		RET 
+
+	ITERA ENDP
+	
+	
+	
+	END MAIN
